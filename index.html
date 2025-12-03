@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilma Rasheed Portfolio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Background Video -->
+<video autoplay muted loop id="bg-video">
+  <source src="video-bg.mp4" type="video/mp4">
+</video>
+
+<!-- Navigation Dots -->
+<div class="nav-dots">
+  <a href="#home" class="dot"></a>
+  <a href="#projects" class="dot"></a>
+  <a href="#publications" class="dot"></a>
+  <a href="#certifications" class="dot"></a>
+  <a href="#leadership" class="dot"></a>
+  <a href="#experience" class="dot"></a>
+  <a href="#sop" class="dot"></a>
+</div>
+
+<!-- Sections -->
+<div class="sections">
+
+  <!-- Home Section -->
+  <section id="home" class="page">
+    <div class="content fade-in">
+      <h1 class="slide-in">ILMA RASHEED</h1>
+      <h3 class="slide-in delay1">Computer Science Student & Emerging Researcher</h3>
+      <p class="fade-in delay2">
+        An enthusiastic B.Tech Computer Science student who loves exploring, learning, and building without restricting to one field. I enjoy working on anything that challenges me to think differently whether it is research, software projects, interactive systems, or something completely new. I’m driven by curiosity, creativity and the excitement of turning ideas into real solutions that make technology easier and more meaningful for people.
+      </p>
+      <p class="fade-in delay3">
+        I constantly experiment, research, collaborate, anchor events, volunteer, and take on opportunities that help me evolve personally and professionally. I am open to internships and real-world experiences where I can learn, contribute, and be part of innovation in any domain.
+      </p>
+      <p class="github fade-in delay4">GitHub: <a href="https://github.com/illmaahh" target="_blank">github.com/illmaahh</a></p>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="page">
+    <div class="content fade-in">
+      <h2 class="slide-in">Projects</h2>
+      <div class="project slide-in delay1">
+        <h3>DDAP Web App (Python, Streamlit)</h3>
+        <p>Engineered a sentiment analysis platform to uncover behavioral patterns of digital addiction through social media data.</p>
+      </div>
+      <div class="project slide-in delay2">
+        <h3>GAN Project</h3>
+        <p><a href="git@github.com:illmaahh/GAN_project.git" target="_blank">GitHub Repository</a></p>
+      </div>
+      <div class="project slide-in delay3">
+        <h3>ElderVR — Adaptive Healthcare Dashboard</h3>
+        <p>VR-inspired adaptive healthcare system for elderly users with simplified UI, medicine reminders, and stress-relief modules.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications Section -->
+  <section id="publications" class="page">
+    <div class="content fade-in">
+      <h2 class="slide-in">Publications</h2>
+      <div class="publication slide-in delay1">
+        <h3>Adaptive VR Interfaces for Elderly Healthcare Monitoring</h3>
+        <p>Zenodo — <a href="https://doi.org/10.5281/zenodo.17790985" target="_blank">DOI Link</a></p>
+      </div>
+      <div class="publication slide-in delay2">
+        <h3>WhatsApp Usability Research</h3>
+        <p>Analyzed accessibility and user interaction for elderly users and suggested interface improvements. 
+        <br>Access full paper: <a href="https://doi.org/your-whatsapp-paper-doi-link" target="_blank">View Research</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Section -->
+  <section id="certifications" class="page">
+    <div class="content fade-in">
+      <h2 class="slide-in">Certifications</h2>
+      <div class="cert-list">
+        <div class="cert slide-in delay1" onclick="showCert('cert1.jpg')">GenAI Powered Data Analytics — Job Simulation (2025)</div>
+        <div class="cert slide-in delay2" onclick="showCert('cert2.jpg')">AWS Solutions Architecture — Job Simulation (Apr 2025)</div>
+        <div class="cert slide-in delay3" onclick="showCert('cert3.jpg')">HP LIFE – Data Science & Analytics (Sep 2025)</div>
+        <div class="cert slide-in delay4" onclick="showCert('cert4.jpg')">HP LIFE – Social Media Marketing (Sep 2025)</div>
+        <div class="cert slide-in delay5" onclick="showCert('cert5.jpg')">Virtual Assistant — Amazon (Professional training)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership & Engagement Section -->
+  <section id="leadership" class="page">
+    <div class="content fade-in">
+      <h2 class="slide-in">Leadership & Engagement</h2>
+      <ul class="slide-in delay1">
+        <li>Prefect & Discipline Committee Head — All Saints School</li>
+        <li>NSS Committee — Community service and student welfare activities</li>
+        <li>Anchoring & Public Speaking — Freshers’ Party and academic events</li>
+        <li>Attended Databricks DevConnect, Dubai, 2025 — immersive event on data engineering, AI-powered tools, and networking</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="page">
+    <div class="content fade-in">
+      <h2 class="slide-in">Experience</h2>
+      <p class="slide-in delay1">Open to research internships and real-world industry experience, contributing to innovative projects while learning new skills and technologies. Ready for relocation.</p>
+    </div>
+  </section>
+
+  <!-- Statement of Purpose -->
+  <section id="sop" class="page">
+    <div class="content fade-in">
+      <h2 class="slide-in">Statement of Purpose</h2>
+      <p class="slide-in delay1">Eager to gain hands-on experience through research or industry projects while contributing my skills, learning from experts, and growing into a confident and impactful professional.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- Certificate Popup -->
+<div id="cert-popup" class="cert-popup" onclick="closeCert()">
+  <img id="cert-img" src="" alt="Certificate">
+</div>
+
+<!-- Floating Contact Button -->
+<div id="contact-btn" class="contact-btn">Contact Me</div>
+
+<!-- Contact Modal -->
+<div id="contact-modal" class="contact-modal">
+  <div class="contact-content">
+    <span id="close-modal" class="close">&times;</span>
+    <h2>Get in Touch</h2>
+    <p>Email: <a href="mailto:ilmaaa.rashid@gmail.com">ilmaaa.rashid@gmail.com</a></p>
+    <p>GitHub: <a href="https://github.com/illmaahh" target="_blank">github.com/illmaahh</a></p>
+    <p>WhatsApp: <a href="https://wa.me/919302875725" target="_blank">Chat Now</a></p>
+    <p>Location: Bhopal, India (Ready for relocation)</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
