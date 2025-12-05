@@ -1,131 +1,870 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body, html { height: 100%; font-family: 'Arial', sans-serif; color: #fff; overflow: hidden; }
+/* =========================================================================
+   styles.css
+   Dark, creative, research-portfolio style
+   - No image placeholders (hidden)
+   - Card grid layout (L2)
+   - Expandable modal timeline (L4)
+   - Fade+slide reveals, glow+pulse hover, terminal kinetic blocks
+   - Tone: academic + portfolio + resume hybrid
+   - Lengthy, modular, heavily commented for future edits
+   ========================================================================= */
 
-#bg-video {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-  filter: brightness(0.5);
+/* ==========================
+   ROOT VARIABLES - COLOR, SPACING, TYPOGRAPHY
+   ========================== */
+:root{
+  /* Core Colors */
+  --bg-100: #020205;           /* page background near-black */
+  --bg-90:  #07080b;
+  --panel: rgba(255,255,255,0.03);
+  --muted: #98aab3;
+  --text:  #eafcff;            /* main text */
+  --accent-1: #00d1ff;         /* cyan */
+  --accent-2: #8b6cff;         /* violet */
+  --accent-3: #ffd166;         /* warm gold / highlight */
+
+  --glass: rgba(255,255,255,0.02);
+  --glass-2: rgba(255,255,255,0.025);
+
+  /* Sizes */
+  --container-max: 1180px;
+  --radius: 14px;
+  --card-padding: 22px;
+  --ease-1: cubic-bezier(.2,.9,.2,1);
+  --ease-2: cubic-bezier(.16,.84,.36,1);
+
+  /* typographic scale */
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --fw-regular: 400;
+  --fw-medium: 600;
+  --fw-bold: 800;
+
+  --mono: "Courier New", Courier, monospace;
+}
+
+/* ==========================
+   GLOBAL RESET / BASE
+   ========================== */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-100),var(--bg-90));color:var(--text);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a{color:var(--accent-1);text-decoration:none}
+button{font-family:var(--font-sans)}
+img{max-width:100%;display:block;border:0}
+
+/* hide all images if present (user asked "remove any picture placement") */
+img, picture, .img, .hero-image, .project-image { display: none !important; visibility: hidden !important; }
+
+/* utility */
+.container{max-width:var(--container-max);margin:0 auto;padding:24px}
+.center{display:flex;align-items:center;justify-content:center}
+.grid-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+
+/* ==========================
+   TOP NAV / BRAND
+   ========================== */
+.topbar{position:sticky;top:12px;z-index:120;padding:10px 0;backdrop-filter: blur(6px);-webkit-backdrop-filter: blur(6px)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:var(--container-max);margin:0 auto;padding:8px}
+.brand{font-weight:var(--fw-bold);color:var(--accent-2);font-size:0.95rem;letter-spacing:0.6px;text-transform:uppercase}
+.nav{display:flex;gap:10px;align-items:center}
+.nav-link{padding:8px 12px;border-radius:10px;color:rgba(235,250,255,0.92);font-weight:700;border:1px solid rgba(255,255,255,0.03);transition:all .18s var(--ease-1)}
+.nav-link:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(11,209,255,0.03), 0 6px 20px rgba(139,108,255,0.02)}
+.nav-link.active{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021018;border:none}
+
+/* small responsive nav collapse */
+@media(max-width:860px){
+  .nav{gap:8px;flex-wrap:wrap}
+  .brand{font-size:0.92rem}
+}
+
+/* ==========================
+   HERO / LANDING
+   - No images used; uses CSS shapes and animated gradients
+   - A + B + C tone in typography & content areas
+   ========================== */
+.hero {
+  height: 100vh !important;
+  min-height: 100vh !important;
+  display: grid;
+  align-items: center;
+  background: transparent !important;
+  position: relative;
+  z-index: 5 !important;
+}
+
+
+
+
+@media(max-width:980px){ .hero{grid-template-columns:1fr; padding:36px 0} .hero-right{order:2} }
+
+.hero-left{padding-right:8px}
+.hero-name{font-size:clamp(30px,6vw,56px);font-weight:900;line-height:1;margin-bottom:6px;text-transform:lowercase;letter-spacing:0.4px}
+.hero-sub{font-size:16px;color:var(--muted);font-weight:700;margin-bottom:14px}
+.hero-desc{color:rgba(230,255,255,0.92);line-height:1.7;font-size:16px;margin-bottom:18px;max-width:66ch}
+.hero-meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);margin-bottom:16px;font-weight:700}
+.hero-actions{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+
+/* hero action buttons */
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:800;text-decoration:none}
+.btn-primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#021018;box-shadow:0 10px 40px rgba(139,108,255,0.06)}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)}
+.btn-primary:hover{transform:translateY(-4px);box-shadow:0 22px 78px rgba(139,108,255,0.12)}
+.btn-ghost:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(0,0,0,0.6)}
+
+/* hero right: CSS-only visual (geometric + animated) */
+.hero-right{display:flex;align-items:center;justify-content:center;position:relative}
+.visual-shell{
+  width:420px;height:420px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03);position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.6);
+  display:flex;align-items:center;justify-content:center;padding:18px;
+}
+
+/* geometric animated shapes - pure css (Q1 A+B+C combined) */
+.geom{
+  position:absolute;border-radius:12px;filter:blur(8px);opacity:0.65;
+  transform-origin:center;
+}
+.geom.g1{width:220px;height:220px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));top:24px;left:28px;mix-blend-mode:screen;animation:spinSlow 28s linear infinite}
+.geom.g2{width:180px;height:180px;background:linear-gradient(135deg,var(--accent-2),var(--accent-1));bottom:18px;right:38px;animation:floatY 6s ease-in-out infinite}
+.geom.g3{width:120px;height:120px;background:linear-gradient(90deg,var(--accent-1),var(--accent-3));top:50%;left:50%;transform:translate(-50%,-50%) rotate(0deg);animation:rotateBack 14s linear infinite;opacity:0.82}
+
+/* small CSS glyphs (C: resume/research hybrid aesthetic) */
+.visual-center{
+  width:240px;height:240px;border-radius:12px;background:linear-gradient(180deg, rgba(3,6,10,0.72), rgba(6,10,12,0.82));display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,0.02);box-shadow:inset 0 -30px 60px rgba(0,0,0,0.5);
+}
+.visual-center .glyph{
+  font-family:var(--mono);font-size:12px;color:rgba(180,240,255,0.9);opacity:0.95;line-height:1.4;white-space:pre;
+  text-align:center;padding:8px;border-radius:8px;border:1px dashed rgba(255,255,255,0.02);
+}
+
+/* animations */
+@keyframes spinSlow { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes floatY{ 0%{transform:translateY(0)}50%{transform:translateY(-16px)}100%{transform:translateY(0)} }
+@keyframes rotateBack{ 0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(-360deg)} }
+
+/* ==========================
+   SECTION TITLES, LEAD, DIVIDERS
+   ========================== */
+.section-title{font-size:28px;font-weight:900;margin:6px 0 12px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.lead{color:var(--muted);max-width:78ch;font-size:15px;line-height:1.7;margin-bottom:14px}
+.decor{height:3px;width:86px;border-radius:6px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));margin:16px 0}
+
+/* ==========================
+   GRID CARD STYLING (L2)
+   - card only uses text + accent bands (no images)
+   - card supports hover glow & elevation (animation 3)
+   - each card clickable to expand (modal / timeline L4)
+   ========================== */
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:18px}
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:var(--radius);padding:var(--card-padding);border:1px solid rgba(255,255,255,0.03);
+  min-height:190px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .34s var(--ease-1), box-shadow .34s, border-color .34s;
+  overflow:visible;position:relative;
+}
+.card .card-header{display:flex;align-items:center;gap:12px}
+.card h3{margin:0;font-size:1.1rem;font-weight:800;color:var(--text)}
+.card p{margin:6px 0;color:var(--muted);line-height:1.6;font-size:0.98rem}
+.card .meta{color:var(--muted);font-weight:700;margin-top:8px;font-size:0.95rem}
+
+/* accent band at top for CTA/visual separation - only CSS gradients */
+.card::after{
+  content:'';position:absolute;left:18px;right:18px;height:4px;top:14px;border-radius:10px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));opacity:0.08;
+}
+
+/* hover glow and pulse (animation 3 & 5) */
+.card:hover{transform:translateY(-12px) scale(1.01);box-shadow:0 32px 120px rgba(139,108,255,0.06), 0 0 60px rgba(0,209,255,0.04);border-color:rgba(255,255,255,0.06)}
+.card:active{transform:translateY(-6px) scale(1.0)}
+
+/* subtle decorative badge for research/resume tone */
+.badge{
+  display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-2),var(--accent-1));color:#021018;font-weight:800;font-size:12px;
+  box-shadow:0 8px 30px rgba(139,108,255,0.04)
+}
+
+/* ==========================
+   LONG DESCRIPTIONS & DETAILS (ACADEMIC STYLE - A)
+   - paragraph spacing, blockquote style, citations look
+   ========================== */
+.long-desc{color:#d8f6ff;font-size:0.98rem;line-height:1.8;margin-top:12px}
+.long-desc p{margin-bottom:12px}
+.long-desc blockquote{margin:12px 0;padding:12px;border-left:4px solid rgba(139,108,255,0.14);background:linear-gradient(90deg,rgba(139,108,255,0.02),transparent);font-style:italic;color:#cfeeff}
+
+/* citation (appearance only) */
+.citation{color:var(--muted);font-size:0.92rem}
+.citation::before{content:"[";opacity:0.6}
+.citation::after{content:"]";opacity:0.6}
+
+/* numbered methodology list */
+.methodology{margin-top:10px}
+.methodology ol{padding-left:18px;color:var(--muted);line-height:1.6}
+.methodology li{margin:6px 0}
+
+/* ==========================
+   TIMELINE (L4) - vertical timeline used inside project modal
+   ========================== */
+.timeline{border-left:2px solid rgba(255,255,255,0.03);margin-left:0;padding-left:18px;margin-top:18px}
+.timeline-item{position:relative;margin-bottom:22px;padding-left:14px}
+.timeline-item::before{content:'';position:absolute;left:-11px;top:6px;width:14px;height:14px;border-radius:50%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));box-shadow:0 8px 24px rgba(139,108,255,0.06)}
+.timeline-item h4{margin:0;color:#fff;font-weight:800;font-size:1rem}
+.timeline-item p{margin:6px 0 0;color:var(--muted);font-size:0.95rem;line-height:1.6}
+
+/* timeline meta row */
+.timeline-meta{display:flex;gap:12px;color:var(--muted);font-weight:700;margin-top:8px}
+
+/* ==========================
+   MODAL / EXPANDABLE PROJECT VIEW
+   - opens when card clicked
+   - contains timeline and terminal-style technical highlights
+   ========================== */
+.project-modal{
+  position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:28px;z-index:500;background:linear-gradient(180deg,rgba(0,0,0,0.7),rgba(0,0,0,0.85));
+}
+.project-modal.open{display:flex}
+.project-inner{width:min(1100px,98%);max-height:86vh;overflow:auto;border-radius:16px;background:linear-gradient(180deg,rgba(6,8,10,0.98),rgba(6,8,10,0.99));padding:22px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 50px 200px rgba(0,0,0,0.7)}
+.project-header{display:flex;align-items:start;justify-content:space-between;gap:12px}
+.project-header h2{font-size:1.5rem;margin:0}
+.project-controls{display:flex;gap:10px;align-items:center}
+.modal-close{background:transparent;border:none;color:var(--text);font-size:20px;cursor:pointer;padding:8px}
+.project-meta{color:var(--muted);font-weight:700}
+
+/* split view inside modal */
+.project-grid{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:12px}
+@media(max-width:980px){ .project-grid{grid-template-columns:1fr} }
+
+/* terminal-style technical block (animation 5) */
+.terminal{
+  background:#01060a;border:1px solid rgba(255,255,255,0.03);padding:14px;border-radius:10px;font-family:var(--mono);color:#bfefff;font-size:0.95rem;line-height:1.6;min-height:120px;position:relative;overflow:hidden;
+}
+.terminal .line{white-space:pre-wrap}
+.terminal .cursor{display:inline-block;width:12px;height:18px;background:var(--accent-2);margin-left:6px;vertical-align:middle;animation:blink .9s steps(2) infinite}
+@keyframes blink{50%{opacity:0.15}}
+
+/* small tag list used in technical highlights */
+.tech-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tech-pill{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));padding:6px 10px;border-radius:999px;color:#021018;font-weight:800;font-size:0.85rem}
+
+/* ==========================
+   CITATIONS / FOOTNOTES / REFERENCES (ACADEMIC A)
+   ========================== */
+.references{margin-top:18px;border-top:1px dashed rgba(255,255,255,0.03);padding-top:16px;color:var(--muted)}
+.ref-item{margin-bottom:8px;font-size:0.95rem}
+
+/* styled small note */
+.note{background:linear-gradient(90deg, rgba(139,108,255,0.02), rgba(0,209,255,0.02));border-radius:10px;padding:12px;color:#dff7ff;border:1px solid rgba(255,255,255,0.02);margin-top:12px}
+
+/* ==========================
+   CERTIFICATIONS LISTING (NO PIC) - extended verbose blocks
+   ========================== */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;margin-top:18px}
+.cert-tile{
+  background:linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.01));
+  border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03);line-height:1.5;color:#dff7ff;
+}
+.cert-tile strong{display:block;font-weight:800;margin-bottom:6px}
+.cert-tile small{color:var(--muted);display:block;margin-top:8px}
+
+/* clickable expansion for cert tiles */
+.cert-tile[role="button"]{cursor:pointer}
+.cert-tile[role="button"]:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(11,209,255,0.02)}
+
+/* ==========================
+   EDUCATION / LEADERSHIP / EXPERIENCE
+   - resume-style blocks (C)
+   ========================== */
+.resume{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.res-card{background:var(--glass);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+.res-card h4{margin:0 0 6px;font-size:1.05rem;font-weight:800}
+.res-card p{color:var(--muted);font-size:0.95rem}
+
+/* timeline resume vertical */
+.resume-timeline{margin-top:12px;border-left:2px solid rgba(255,255,255,0.03);padding-left:12px}
+.resume-item{position:relative;margin-bottom:18px;padding-left:10px}
+.resume-item::before{content:'';position:absolute;left:-11px;top:6px;width:12px;height:12px;border-radius:50%;background:linear-gradient(90deg,var(--accent-2),var(--accent-1))}
+
+/* ==========================
+   ACCESSIBILITY / INTERACTION HELPERS
+   ========================== */
+a:focus,button:focus{outline:3px solid rgba(11,209,255,0.08);outline-offset:3px;border-radius:8px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* keyboard accessible card focus */
+.card:focus{outline:3px solid rgba(139,108,255,0.06);transform:translateY(-8px)}
+
+/* ==========================
+   REVEAL ON SCROLL (FADE + SLIDE) - JS will toggle .in class
+   - Provide default transitional styles for elements
+   ========================== */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .66s var(--ease-1), transform .66s var(--ease-1)}
+.reveal.in{opacity:1;transform:none}
+
+/* small viewport adjustments */
+@media(max-width:720px){
+  .hero{grid-template-columns:1fr}
+  .project-grid{grid-template-columns:1fr}
+  .resume{grid-template-columns:1fr}
+  .hero-right{display:none}
+}
+
+/* ==========================
+   ANIMATIONS & DECORATIVE FLAIR (Long list)
+   - Provide lots of tiny decorative classes to make page lively
+   ========================== */
+
+/* shimmer bar for headings */
+.h-shimmer{position:relative;overflow:hidden}
+.h-shimmer::after{content:'';position:absolute;left:-50%;top:0;height:100%;width:50%;background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.18), rgba(255,255,255,0.04));transform:skewX(-18deg);animation:shimmer 2.4s linear infinite}
+@keyframes shimmer{100%{left:150%}}
+
+/* floating tiny particles (subtle) */
+.particles{position:absolute;inset:0;pointer-events:none}
+.particle{position:absolute;border-radius:999px;opacity:0.05}
+
+/* pulse ring for emphasis */
+.pulse{position:relative}
+.pulse::after{content:'';position:absolute;inset:-6px;border-radius:inherit;background:radial-gradient(circle,var(--accent-2),transparent);opacity:0;transform:scale(.9);transition:opacity .22s, transform .22s}
+.pulse:hover::after{opacity:0.14;transform:scale(1.05)}
+
+/* subtle card shimmer on hover */
+.card-shimmer{position:relative;overflow:hidden}
+.card-shimmer::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.03), rgba(255,255,255,0.01));opacity:0;transform:translateX(-12%);transition:opacity .34s, transform .6s}
+.card-shimmer:hover::after{opacity:1;transform:translateX(12%)}
+
+/* glass blur effect (use sparingly) */
+.glass{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter: blur(6px);-webkit-backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03);border-radius:12px;padding:12px}
+
+/* ripple click effect helper (for buttons) */
+.btn.ripple{position:relative;overflow:hidden}
+.btn.ripple:after{content:'';position:absolute;width:8px;height:8px;background:rgba(255,255,255,0.06);border-radius:50%;transform:scale(1);opacity:0;transition:all .6s ease}
+.btn.ripple:active:after{width:120px;height:120px;opacity:1;transform:scale(1);transition:all .12s ease}
+
+/* ==========================
+   FORMS & CONTACT (if included in pages)
+   ========================== */
+.form-row{display:flex;gap:12px}
+.input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:10px;color:var(--text);width:100%;font-size:15px}
+textarea{min-height:120px;resize:vertical}
+
+/* form notes */
+.form-help{font-size:0.92rem;color:var(--muted);margin-top:8px}
+
+/* ==========================
+   FOOTER
+   ========================== */
+.site-footer{padding:36px 0;text-align:center;color:var(--muted);font-size:0.92rem;border-top:1px solid rgba(255,255,255,0.02);margin-top:36px}
+
+/* ==========================
+   DETAILED UTILITY CLASSES
+   - These give you fine-grained control without adding more CSS
+   ========================== */
+.mt-6{margin-top:6px}.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-18{margin-top:18px}.mt-24{margin-top:24px}
+.mb-6{margin-bottom:6px}.mb-12{margin-bottom:12px}.mb-18{margin-bottom:18px}
+.p-6{padding:6px}.p-12{padding:12px}.p-18{padding:18px}
+.text-muted{color:var(--muted)}.text-small{font-size:0.92rem}
+
+/* ==========================
+   VERY LONG: EXTRA STYLES FOR EXTENDED PAGES & PRINT
+   - add many refinements so file becomes long and robust
+   ========================== */
+
+/* print-friendly adjustments (for resume/pdf export) */
+@media print{
+  body{background:white;color:black}
+  .topbar,.nav, .btn, .project-modal{display:none}
+  .card{page-break-inside:avoid;break-inside:avoid-column}
+}
+
+/* additional decorative blocks for academic tone */
+.pub-block{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.006));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);margin-top:12px}
+.pub-block h4{margin:0 0 6px;font-size:1.02rem}
+.pub-block p{color:var(--muted);margin:0}
+
+/* extended margin utilities */
+.ml-6{margin-left:6px}.mr-6{margin-right:6px}.mx-6{margin-left:6px;margin-right:6px}
+
+/* dense grid for skills & chips (used repetitively) */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.chip{padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));font-weight:800;color:#dff7ff;border:1px solid rgba(255,255,255,0.03);font-size:0.9rem}
+
+/* article & section spacing utilities */
+.article{margin-top:18px}
+.article h3{margin-bottom:8px}
+.article p{color:var(--muted);font-size:0.98rem;line-height:1.7}
+
+/* large blockquote for endorsement/testimonial */
+.endorse{background:linear-gradient(90deg,rgba(139,108,255,0.02),rgba(0,209,255,0.02));padding:16px;border-radius:10px;border-left:4px solid rgba(139,108,255,0.12);color:#dff7ff}
+
+/* keyboard-focus ring */
+.kf{outline:3px solid rgba(11,209,255,0.06);outline-offset:3px;border-radius:8px}
+
+/* ==========================
+   VERY LONG: MORE decorative helpers to reach heavy detail
+   - multiple gradient bands, overlays, blur layers
+   - these are safe and practical; keep them for later creative changes
+   ========================== */
+
+.gradient-band{height:6px;border-radius:8px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));box-shadow:0 6px 20px rgba(139,108,255,0.06);margin:14px 0}
+.subtle-band{height:2px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border-radius:3px;margin:12px 0}
+.soft-panel{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.007));border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.02)}
+
+/* hover underline tie-in */
+.anchor{position:relative}
+.anchor::after{content:'';position:absolute;left:0;bottom:-6px;height:3px;width:0;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .28s var(--ease-1)}
+.anchor:hover::after{width:100%}
+
+/* timeline variants for long histories */
+.timeline-compact .timeline-item{margin-bottom:12px}
+.timeline-detailed .timeline-item{margin-bottom:28px;padding-left:18px}
+
+/* dense reference layout */
+.refs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+.ref-card{background:var(--glass);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
+
+/* ==========================
+   LONG: UTILITY FOR DEBUGGING LAYOUT
+   (can be removed in production, kept for designer control)
+   ========================== */
+.outline{outline:1px dashed rgba(255,255,255,0.02)}
+.show-grid{background:linear-gradient(90deg, rgba(255,255,255,0.002), rgba(255,255,255,0.0006))}
+
+/* END OF STYLES - the file intentionally long and modular for future edits */
+/* Research Interests Grid */
+.interest-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: 36px;
+}
+
+.interest-card {
+  background: linear-gradient(135deg, #1b1f29, #141821);
+  padding: 24px;
+  border-radius: 16px;
+  font-size: 0.97rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  transition: 0.35s ease;
+}
+
+.interest-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.45), 0 0 14px rgba(41,140,255,0.55);
+  border-color: rgba(41,140,255,0.55);
+}
+/* Leadership Cards Grid */
+.leadership-wrapper {
+  display: grid;
+  gap: 26px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  margin-top: 45px;
+}
+
+.leadership-card {
+  background: linear-gradient(135deg, #11141c, #0d1017);
+  padding: 26px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #e6e9ef;
+  transition: all .45s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 0 transparent;
+}
+
+/* glow hover + lift + pulse */
+.leadership-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  border-color: rgba(73, 205, 255, .75);
+  box-shadow: 0 0 20px rgba(73, 205, 255, .35),
+              0 0 45px rgba(73, 205, 255, .15);
+}
+
+/* top animated ribbon */
+.leadership-card::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: -50px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(73,205,255,.28), transparent 70%);
+  transition: .45s;
+  border-radius: 50%;
+}
+
+.leadership-card:hover::before {
+  transform: translate(35px, 55px);
+}
+
+/* list styling inside cards */
+.leadership-card ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+.leadership-card ul li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+/* animated highlighted date */
+.highlight-date {
+  background: rgba(73,205,255,.15);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  border: 1px solid rgba(73,205,255,.35);
+}
+.sub-heading {
+  margin-top: 48px;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #85e6ff;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+
+/* card entrance animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Compact quick badges */
+.leadership-card.compact {
+  padding: 14px 18px;
+  font-size: 0.93rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  transition: 0.25s;
+}
+.leadership-card.compact:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.09);
+}
+
+/* Highlight cards remain large */
+.leadership-card.large {
+  padding: 26px;
+  margin-top: 6px;
+  border-left: 3px solid var(--accent);
+  background: rgba(255,255,255,0.06);
   transition: 0.3s;
 }
+.leadership-card.large:hover {
+  transform: translateY(-5px);
+}
+/* Compact Contact Section */
+.compact-section {
+  padding: 40px 20px; /* Less vertical padding */
+}
 
-#bg-video:hover { filter: brightness(0.7) contrast(1.1); }
-
-.sections { scroll-snap-type: y mandatory; overflow-y: scroll; height: 100vh; }
-
-.page {
-  scroll-snap-align: start;
+.contact-grid.compact {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 50px;
-  min-height: 100vh;
-  flex-direction: column;
-  text-align: center;
-  background: rgba(0,0,0,0.6);
-  transition: transform 0.5s ease;
-}
-.page:hover { transform: scale(1.02); }
-
-h1 { font-size: 4em; margin-bottom: 10px; opacity:0; transform: translateY(50px);}
-h3 { font-size: 1.5em; margin-bottom: 20px; font-weight: normal; opacity:0; transform: translateY(50px);}
-h2 { font-size: 3em; margin-bottom: 30px; opacity:0; transform: translateY(50px);}
-p, li { font-size: 1.2em; margin: 10px 0; line-height: 1.6; opacity:0; transform: translateY(30px);}
-a { color: #00ffff; text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.project, .publication, .cert-list { margin-bottom: 20px; }
-.cert { cursor: pointer; padding: 10px; background: rgba(0,255,255,0.1); margin: 10px auto; width: fit-content; border-radius: 5px; transition: 0.3s; }
-.cert:hover { background: rgba(0,255,255,0.25); transform: scale(1.05); }
-
-.cert-popup { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:1000; }
-.cert-popup img { max-width: 80%; max-height: 80%; border: 3px solid #00ffff; border-radius: 10px; }
-
-.fade-in { opacity: 0; animation: fadeIn 1s forwards; }
-.slide-in { opacity: 0; transform: translateY(50px); animation: slideIn 1s forwards; }
-.delay1 { animation-delay: 0.3s; }
-.delay2 { animation-delay: 0.6s; }
-.delay3 { animation-delay: 0.9s; }
-.delay4 { animation-delay: 1.2s; }
-.delay5 { animation-delay: 1.5s; }
-
-@keyframes fadeIn { to { opacity: 1; } }
-@keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
-
-.github a { font-weight: bold; }
-ul { list-style: none; padding:0; }
-
-/* Navigation dots */
-.nav-dots {
-  position: fixed;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-}
-.nav-dots .dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.5); margin: 10px 0; transition: 0.3s; }
-.nav-dots .dot:hover { background: #00ffff; }
-.nav-dots .dot.active { background: #00ffff; }
-
-/* Floating Contact Button */
-.contact-btn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: #00ffff;
-  color: #000;
-  padding: 15px 25px;
-  border-radius: 50px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  z-index: 100;
-  transition: transform 0.3s, background 0.3s;
-}
-.contact-btn:hover { transform: scale(1.1); background: #00cccc; }
-
-/* Contact Modal */
-.contact-modal {
-  display: none;
-  position: fixed;
-  z-index: 200;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgba(0,0,0,0.9);
-  backdrop-filter: blur(3px);
-  justify-content: center;
-  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.contact-content {
-  background: #111;
-  padding: 30px;
-  border-radius: 15px;
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-  animation: modalFade 0.5s ease;
+.contact-card.small-card {
+  flex: 1 1 300px;
+  padding: 12px 16px;
+  font-size: 0.95rem; /* Slightly smaller text */
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+/* LEADERSHIP SECTION */
+
+/* Compact list for small leadership points */
+.leadership-points {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 16px;
 }
 
-.contact-content a { color: #00ffff; text-decoration: none; }
-.contact-content a:hover { text-decoration: underline; }
+.leadership-points li {
+  font-size: 0.85rem;     /* small text */
+  color: #cfeff6;         /* muted but readable */
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
 
-.close {
+/* Large blocks for Databricks and Internship */
+.leadership-card.large {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,209,255,0.3);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.leadership-card.large:hover {
+  box-shadow: 0 8px 20px rgba(0,209,255,0.5);
+  transform: translateY(-2px);
+}
+
+.leadership-card.large h3 {
+  font-size: 1rem;
+  color: #00d1ff;
+  margin-bottom: 6px;
+}
+
+.leadership-card.large p,
+.leadership-card.large ul li {
+  font-size: 0.88rem;
+  color: #cfeff6;
+  margin-bottom: 4px;
+}
+
+.highlight-date {
+  font-size: 0.8rem;
+  color: #9aa4ad;
+  margin-bottom: 6px;
+}
+
+/* PUBLICATION GLOWING CARDS */
+.pub-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 209, 255, 0.25);
+  padding: 22px 25px;
+  margin: 24px 0;
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+  animation: pubFadeUp 1s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Glow animation on hover */
+.glow-card {
+  transition: box-shadow 0.3s ease, transform 0.2s;
+}
+.glow-card:hover {
+  box-shadow: 0 0 18px rgba(0, 209, 255, 0.55),
+              0 0 40px rgba(0, 209, 255, 0.2);
+  transform: translateY(-6px);
+}
+
+/* Publication Title */
+.pub-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #00d1ff;
+  margin-bottom: 8px;
+}
+
+/* DOI Button */
+.pub-doi {
+  background: #0066ff;
   color: #fff;
-  float: right;
-  font-size: 30px;
-  cursor: pointer;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: background 0.2s;
+}
+.pub-doi:hover {
+  background: #1a7bff;
 }
 
-@keyframes modalFade {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
+/* Publication text */
+.pub-summary {
+  font-size: 0.95rem;
+  color: #d8f5ff;
+  line-height: 1.55;
+  margin-top: 3px;
 }
+
+/* Reveal Animation */
+@keyframes pubFadeUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.name-big {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(0, 209, 255, 0.35), 
+               0 0 22px rgba(0, 209, 255, 0.25);
+}
+
+/* FIX HERO BACKGROUND TO SHOW VIDEO */
+#hero, .hero, .hero-left, .hero-right, .hero-grid {
+  background: transparent !important;
+  position: relative;
+  z-index: 2; /* keeps content above video */
+}
+
+/* ensure overlay + video stay behind all content */
+/* WORKING VIDEO BACKGROUND */
+#bg-video {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -10 !important;
+  pointer-events: none;
+}
+
+
+/* ------------------------------
+   CERTIFICATION TILES — GLOW + GLASS EFFECT
+--------------------------------*/
+.cert-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cert-tile {
+  background: rgba(10, 14, 22, 0.55); /* darker for readability */
+  backdrop-filter: blur(10px);
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #e9f7ff;
+  font-size: 15px;
+  font-weight: 600;
+  min-width: 260px;
+  cursor: pointer;
+  transition: 
+      transform 0.35s ease,
+      box-shadow 0.35s ease,
+      background 0.3s ease,
+      border-color 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+/* Hover glow */
+.cert-tile:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-1);
+  background: rgba(20, 30, 45, 0.75);
+  box-shadow: 
+      0 0 18px rgba(0, 209, 255, 0.4),
+      0 12px 24px rgba(0,0,0,0.5);
+}
+
+/* Click (active) effect */
+.cert-tile:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 8px rgba(0, 209, 255, 0.45);
+}
+/* ---------------------------------------
+   CONTACT & SOP — GLASS + GLOW + COMPACT
+----------------------------------------*/
+
+.contact-section {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.contact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Shared style for both cards */
+.contact-card {
+  background: rgba(8,12,18,0.55); /* dark glass */
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  padding: 18px 20px;
+  border-radius: 14px;
+  width: 330px;
+  color: #e9f7ff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: 
+      transform .35s ease,
+      box-shadow .35s ease,
+      border-color .35s ease;
+}
+
+/* Hover glow */
+.contact-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-1);
+  box-shadow:
+      0 0 20px rgba(0, 209, 255, 0.35),
+      0 12px 24px rgba(0,0,0,0.6);
+}
+
+/* Headings inside cards */
+.contact-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-1);
+}
+
+/* Text inside cards */
+.contact-card p,
+.contact-card a {
+  font-size: 0.95rem;
+  color: #d9ecf7;
+  line-height: 1.5;
+}
+
+/* SOP card spacing */
+.contact-card p {
+  margin-bottom: 10px;
+}
+
+/* Resume button */
+.contact-card .btn-primary {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  color: #021018;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.contact-card .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(0,209,255,0.5);
+}
+
+/* Section title spacing smaller */
+#contact .section-title {
+  margin-bottom: 10px;
+  font-size: 1.9rem;
+}
+
+/* Make whole section compact */
+#contact .section-inner {
+  padding-top: 40px !important;
+  padding-bottom: 20px !important;
+}
+.dark-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: -9 !important;
+}
+
+
+.layer, .grain {
+  pointer-events: none;
+  background: transparent !important;
+  z-index: -8 !important;
+}
+

@@ -2,47 +2,122 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Certifications — Ilma Rasheed</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="page-overlay" class="overlay"></div>
 
   <header class="topbar">
-    <a class="logo" href="index.html">ILMA RASHEED</a>
-    <nav class="nav">
-      <a href="projects.html" class="nav-link">Projects</a>
-      <a href="research.html" class="nav-link">Research</a>
-      <a href="certifications.html" class="nav-link active">Certifications</a>
-      <a href="contact.html" class="nav-link cta">Contact</a>
-    </nav>
+    <div class="topbar-inner container">
+      <a class="brand" href="index.html">ILMA RASHEED</a>
+      <nav class="nav">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="projects.html">Projects</a>
+        <a class="nav-link" href="research.html">Research</a>
+        <a class="nav-link active" href="certifications.html">Certifications</a>
+        <a class="nav-link" href="contact.html">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="page container">
-    <h2 class="page-title">Certifications</h2>
+  <main class="container">
+    <section class="section" style="padding-top:92px;">
+      <div class="section-inner fade-slide in">
+        <h1 class="section-title">Certifications & Professional Learning</h1>
+        <div class="decor-line"></div>
+        <p class="lead">This long-form listing provides context, scope and learning outcomes for the professional and academic certifications attained. Each entry contains a short description and notes about what the credential represents and how it informs my practice.</p>
+      </div>
 
-    <ul class="cert-list">
-      <li>Google — Intro to Computer Vision & AI (2025)</li>
-      <li>Data Analytics — Geeks of Gurukul</li>
-      <li>Virtual Assistant — Amazon (Professional training)</li>
-      <li>Foundations of Python Programming</li>
-      <li>AI Powered Data Analytics (Apr 2024)</li>
-      <li>HP LIFE – Social Media Marketing (Sep 2025)</li>
-      <li>HP LIFE – Data Science & Analytics (Sep 2025)</li>
-      <li>AWS Solutions Architecture Job Simulation (Apr 2025)</li>
-      <li>GenAI Powered Data Analytics job simulation</li>
-    </ul>
+      <div class="cert-grid" style="margin-top:18px;">
 
+        <div class="cert-tile">
+          <strong>Google — Introduction to Computer Vision & Artificial Intelligence (2025)</strong>
+          <small>
+            Comprehensive exploration of image processing fundamentals, convolutional architectures, transfer learning strategies, object detection pipelines, and practical model deployment considerations. Included applied labs and case-study assessments.
+          </small>
+        </div>
+
+        <div class="cert-tile">
+          <strong>GenAI Powered Data Analytics — Job Simulation (2025)</strong>
+          <small>
+            Simulation-driven credential focusing on integrating generative models into analytics workflows. Key topics: prompt engineering for data summarization, LLM-assisted anomaly detection, and auto-documentation pipelines that augment analyst workflows.
+          </small>
+        </div>
+
+        <div class="cert-tile">
+          <strong>AWS Solutions Architecture — Job Simulation (Apr 2025)</strong>
+          <small>
+            Practical cloud architecture scenarios emphasising scalability, fault tolerance and cost optimization. Covered identity and access management, VPC design patterns, CI/CD flows and multi-region failover planning.
+          </small>
+        </div>
+
+        <div class="cert-tile">
+          <strong>HP LIFE — Data Science & Analytics (Sep 2025)</strong>
+          <small>
+            Foundational modules on exploratory data analysis, visualization strategies, decision-oriented modeling, and end-to-end data solution design for business contexts.
+          </small>
+        </div>
+
+        <div class="cert-tile">
+          <strong>HP LIFE — Social Media Marketing (Sep 2025)</strong>
+          <small>
+            Campaign planning, channel optimization, engagement analytics, and data-driven content sequencing. Emphasis on measurable KPIs and A/B testing structured workflows.
+          </small>
+        </div>
+
+        <div class="cert-tile">
+          <strong>Virtual Assistant — Amazon (Professional Training)</strong>
+          <small>
+            Training focused on customer empathy, professional escalation handling, scripted troubleshooting, documentation discipline and operational efficiency in virtual service environments.
+          </small>
+        </div>
+
+        <div class="cert-tile">
+          <strong>AI Powered Data Analytics — Applied Course (Apr 2024)</strong>
+          <small>
+            Applied machine learning fundamentals for analytics tasks, time series basics, regression analysis, clustering and foundational practices in reproducible analysis.
+          </small>
+        </div>
+
+        <div class="cert-tile">
+          <strong>Foundations of Python Programming</strong>
+          <small>
+            Core programming constructs, data structures, functional patterns and algorithmic thinking required for research and prototype development.
+          </small>
+        </div>
+
+        <div class="cert-tile">
+          <strong>Additional Micro-Credentials & Workshops</strong>
+          <small>
+            Various domain-focused upskilling sessions: data ethics, reproducible research practices, UX & accessibility microcourses, and project management essentials.
+          </small>
+        </div>
+
+      </div>
+
+      <div style="margin-top:24px;" class="lead">
+        <p>Notes: If required for recruitment or academic verification, scanned certificates and verification links are available upon request. Contact: <a href="mailto:ilmaaa.rashid@gmail.com">ilmaaa.rashid@gmail.com</a>.</p>
+      </div>
+
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <a href="index.html">← Back to Home</a>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+  <script>
+    // reveal for certifications page
+    (function(){
+      const inner = document.querySelectorAll('.section-inner, .cert-tile');
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('in', 'fade-slide');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      inner.forEach(n => io.observe(n));
+    })();
+  </script>
 </body>
 </html>

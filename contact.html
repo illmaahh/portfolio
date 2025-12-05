@@ -2,49 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact — Ilma Rasheed</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-wrap{max-width:980px;margin:84px auto;padding:26px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);}
+    .title{font-size:34px;font-weight:800;margin-bottom:10px;background:linear-gradient(90deg,#7be0ff,#ff8bd5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .contact-card{padding:16px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+    .contact-card h3{margin-bottom:8px}
+    .contact-card p{color:#d7eef8}
+    .contact-actions{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+  </style>
 </head>
 <body>
-  <div id="page-overlay" class="overlay"></div>
 
-  <header class="topbar">
-    <a class="logo" href="index.html">ILMA RASHEED</a>
-    <nav class="nav">
-      <a href="projects.html" class="nav-link">Projects</a>
-      <a href="research.html" class="nav-link">Research</a>
-      <a href="certifications.html" class="nav-link">Certifications</a>
-      <a href="contact.html" class="nav-link active cta">Contact</a>
-    </nav>
+  <video autoplay muted loop playsinline style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-30;filter:brightness(.55)">
+    <source src="assets/bg-loop.mp4" type="video/mp4">
+  </video>
+
+  <header class="header">
+    <div class="header-inner container">
+      <a class="brand" href="index.html">ILMA RASHEED</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="research.html">Research</a>
+        <a href="certifications.html">Certifications</a>
+        <a href="education.html">Education</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="page container">
-    <h2 class="page-title">Contact</h2>
+  <main>
+    <div class="contact-wrap container">
+      <h1 class="title">Contact</h1>
+      <p style="color:#bcddee">I’m open to research internships, collaborations and project opportunities. Here’s how to reach me.</p>
 
-    <div class="contact-grid">
-      <div class="contact-card">
-        <h3>Get in touch</h3>
-        <p>Email: <a href="mailto:ilmaaa.rashid@gmail.com">ilmaaa.rashid@gmail.com</a></p>
-        <p>Phone: +91 9302875725</p>
-        <p>GitHub: <a href="https://github.com/illmaahh/ElderVR" target="_blank">illmaahh/ElderVR</a></p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Get in touch</h3>
+          <p><strong>Email:</strong> <a href="mailto:ilmaaa.rashid@gmail.com">ilmaaa.rashid@gmail.com</a></p>
+          <p><strong>Phone:</strong> +91 9302875725</p>
+          <p><strong>GitHub:</strong> <a href="https://github.com/illmaahh" target="_blank">github.com/illmaahh</a></p>
+          <p><strong>WhatsApp:</strong> <a href="https://wa.me/919302875725" target="_blank">Chat Now</a></p>
+          <div class="contact-actions">
+            <a class="view-btn" href="assets/resume.pdf" download>Download Resume</a>
+            <a class="view-btn" href="https://github.com/illmaahh" target="_blank">Visit GitHub</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h3>Statement of Purpose</h3>
+          <p style="color:#d7eef8">Motivated to contribute to cutting-edge research in interactive systems, VR-based healthcare, and human-centric technology — while continuously learning, collaborating, and delivering meaningful innovation.</p>
+          <p style="color:#cfeff6">Ready to relocate for the right internship or research opportunity.</p>
+        </div>
       </div>
 
-      <div class="contact-card">
-        <h3>Statement of purpose</h3>
-        <p>Motivated to contribute to research in VR-based interactive systems and accessible healthcare technology while gaining hands-on experience under expert guidance.</p>
-      </div>
+      <section style="margin-top:18px;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);background:rgba(255,255,255,0.01)">
+        <h4>Follow-up & Hiring note</h4>
+        <p style="color:#bcddee">If you want to get in touch for internships or research roles, please mention the role and your timeline in the message. I generally respond within a few days, and I’m open to remote or onsite opportunities.</p>
+      </section>
     </div>
-
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <a href="index.html">← Back to Home</a>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+  <footer style="text-align:center;padding:28px;color:#9fbdd5">© 2025 — Contact</footer>
 </body>
 </html>

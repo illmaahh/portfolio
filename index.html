@@ -1,147 +1,352 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ilma Rasheed Portfolio</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ILMA RASHEED — Portfolio</title>
+
+  <!-- Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
-<!-- Background Video -->
-<video autoplay muted loop id="bg-video">
-  <source src="video-bg.mp4" type="video/mp4">
+  <!-- Parallax background layers -->
+  <div id="parallax">
+    <video id="bg-video" autoplay muted loop playsinline>
+  <source src="assets/bg-loop.mp4" type="video/mp4">
 </video>
 
-<!-- Navigation Dots -->
-<div class="nav-dots">
-  <a href="#home" class="dot"></a>
-  <a href="#projects" class="dot"></a>
-  <a href="#publications" class="dot"></a>
-  <a href="#certifications" class="dot"></a>
-  <a href="#leadership" class="dot"></a>
-  <a href="#experience" class="dot"></a>
-  <a href="#sop" class="dot"></a>
-</div>
+    <div class="layer layer-1" aria-hidden="true"></div>
+    <div class="layer layer-2" aria-hidden="true"></div>
+    <div class="layer layer-3" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+  </div>
 
-<!-- Sections -->
-<div class="sections">
+  <!-- Main nav (sticky but minimal) -->
+  <header id="main-header" class="header">
+    <div class="container header-inner">
+      <a href="#" id="brand" class="brand">ILMA RASHEED</a>
+      <nav class="nav" role="navigation" aria-label="Primary">
+        <button class="nav-btn" data-target="hero">Home</button>
+        <button class="nav-btn" data-target="research">Research</button>
+        <button class="nav-btn" data-target="projects">Projects</button>
+        <button class="nav-btn" data-target="publication">Publication</button>
+        <button class="nav-btn" data-target="education">Education</button>
+        <button class="nav-btn" data-target="certifications">Certifications</button>
+        <button class="nav-btn" data-target="leadership">Leadership</button>
+        <button class="nav-btn" data-target="contact" id="contact-nav">Contact</button>
+      </nav>
+    </div>
+  </header>
 
-  <!-- Home Section -->
-  <section id="home" class="page">
-    <div class="content fade-in">
-      <h1 class="slide-in">ILMA RASHEED</h1>
-      <h3 class="slide-in delay1">Computer Science Student & Emerging Researcher</h3>
-      <p class="fade-in delay2">
-        An enthusiastic B.Tech Computer Science student who loves exploring, learning, and building without restricting to one field. I enjoy working on anything that challenges me to think differently whether it is research, software projects, interactive systems, or something completely new. I’m driven by curiosity, creativity and the excitement of turning ideas into real solutions that make technology easier and more meaningful for people.
+  <!-- Fullpage container (each .section is full-screen) -->
+  <main id="fullpage">
+
+ <!-- HERO / LANDING -->
+<section id="hero" class="section">
+  <div class="container hero-grid">
+    <div class="hero-left">
+      <div class="eyebrow">Computer Science Student & Emerging Researcher</div>
+
+     <h1 class="hero-name name-big">ILMA RASHEED</h1>
+
+      <h2 class="typing-subtitle" aria-live="polite"></h2>
+
+      <p class="hero-lead">
+        I am a dedicated B.Tech Computer Science Engineering student with a strong balance of academics, research and practical development.
+        My work focuses on making technology intuitive, human-centred and accessible — especially for elderly users and underserved communities.
+        Along with research, I am highly enthusiastic about internships, summer schools and industry programs that help me grow technically and professionally.
+        I enjoy learning beyond the classroom, building hands-on projects, exploring interdisciplinary ideas and contributing to real-world solutions.
       </p>
-      <p class="fade-in delay3">
-        I constantly experiment, research, collaborate, anchor events, volunteer, and take on opportunities that help me evolve personally and professionally. I am open to internships and real-world experiences where I can learn, contribute, and be part of innovation in any domain.
+
+      <div class="hero-meta">
+        <span>📍 Bhopal, India</span>
+        <span>📞 +91 9302875725</span>
+        <span>✉️ <a href="mailto:ilmaaa.rashid@gmail.com">ilmaaa.rashid@gmail.com</a></span>
+      </div>
+
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://github.com/illmaahh" target="_blank" rel="noopener">GitHub</a>
+        <button class="btn btn-outline" data-scroll-to="projects">Explore Projects</button>
+      </div>
+
+      <div class="chips">
+        <span class="chip">HCI & UX</span>
+        <span class="chip">AI & Machine Learning</span>
+        <span class="chip">Data Science</span>
+        <span class="chip">Networks & Operating Systems</span>
+        <span class="chip">DBMS</span>
+      </div>
+
+    </div>
+
+    <div class="hero-right">
+      <div class="vr-card" aria-hidden="true">
+        <svg class="vr-svg" viewBox="0 0 320 240" role="img" aria-label="VR visual">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#00d1ff"/>
+              <stop offset="1" stop-color="#ff4d84"/>
+            </linearGradient>
+          </defs>
+          <rect x="6" y="6" width="308" height="228" rx="14" fill="rgba(0,0,0,0.35)" stroke="url(#g1)" stroke-width="2"/>
+          <g class="grid-lines" stroke="rgba(255,255,255,0.06)" stroke-width="0.8">
+            <path d="M12 200 C60 110 260 110 308 40" fill="none"/>
+          </g>
+          <g class="pulse" transform="translate(40,40)">
+            <circle cx="120" cy="80" r="26" fill="url(#g1)" opacity="0.14"></circle>
+            <circle cx="120" cy="80" r="10" fill="#fff" opacity="0.06"></circle>
+          </g>
+        </svg>
+        <div class="vr-caption">VR · HCI · Accessible Design</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- RESEARCH INTERESTS (compact section) -->
+    <main>
+
+
+
+
+    <!-- PROJECTS (full) -->
+    <section id="projects" class="section">
+      <div class="container section-inner">
+        <h2 class="section-title">Research Projects</h2>
+        <p class="section-lead">Hands-on work, prototypes and deployed code.</p>
+
+        <div class="projects-grid">
+          <!-- ElderVR -->
+          <article class="project card" data-key="eldervr" tabindex="0" role="button" aria-pressed="false">
+            <div class="project-media"><img src="assets/project1.jpg" alt="ElderVR image"></div>
+            <div class="project-body">
+              <h3>ElderVR — Adaptive Healthcare Dashboard for Elderly Users</h3>
+              <p>VR-inspired adaptive healthcare system focused on elderly accessibility: simplified UI, medicine reminders, stress-relief modules, low cognitive load design.</p>
+              <div class="meta"><span>Tools: Python, Streamlit, Pandas, Matplotlib</span></div>
+              <div class="project-actions">
+                <button class="btn btn-outline" data-open="eldervr">View details</button>
+                <a href="https://github.com/illmaahh/ElderVR" target="_blank" rel="noopener" class="btn btn-ghost">Repository</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- DDAP -->
+          <article class="project card" data-key="ddap" tabindex="0" role="button" aria-pressed="false">
+            <div class="project-media"><img src="assets/project2.jpg" alt="DDAP image"></div>
+            <div class="project-body">
+              <h3>DDAP Web App (Python, Streamlit)</h3>
+              <p>Engineered a sentiment analysis platform to uncover behavioral patterns of digital addiction through social media data. Includes dashboards, topic detection, and behavioral heuristics.</p>
+              <div class="meta"><span>Tools: Python, Streamlit, NLP</span></div>
+              <div class="project-actions">
+                <button class="btn btn-outline" data-open="ddap">View details</button>
+                <a href="https://github.com/illmaahh" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- GAN -->
+          <article class="project card" data-link="git@github.com:illmaahh/GAN_project.git" tabindex="0" role="button" aria-pressed="false">
+            <div class="project-media"><img src="assets/project3.jpg" alt="GAN project image"></div>
+            <div class="project-body">
+              <h3>GAN Project</h3>
+              <p>Experiments with generative adversarial networks for image synthesis and creative data augmentation.</p>
+              <div class="meta"><span>Tools: Python, TensorFlow / PyTorch</span></div>
+              <div class="project-actions">
+                <a href="https://github.com/illmaahh/GAN_project" target="_blank" rel="noopener" class="btn btn-ghost">Repository</a>
+              </div>
+            </div>
+
+          </article>
+        </div>
+      </div>
+    </section>
+
+ <!-- PUBLICATION -->
+<section id="publication" class="section">
+  <div class="container section-inner">
+    <h2 class="section-title">Publication</h2>
+
+    <!-- Publication Block 1 -->
+    <div class="pub-box glow-card">
+      <h3 class="pub-title">Adaptive VR Interfaces for Elderly Healthcare Monitoring</h3>
+      <a class="pub-doi" href="https://doi.org/10.5281/zenodo.17790985" target="_blank" rel="noopener">
+        DOI: 10.5281/zenodo.17790985
+      </a>
+      <p class="pub-summary">
+        Investigates VR accessibility barriers for elderly users and introduces adaptive UI techniques that reduce
+        cognitive load, improve confidence, and support safer remote healthcare monitoring.
       </p>
-      <p class="github fade-in delay4">GitHub: <a href="https://github.com/illmaahh" target="_blank">github.com/illmaahh</a></p>
     </div>
-  </section>
 
-  <!-- Projects Section -->
-  <section id="projects" class="page">
-    <div class="content fade-in">
-      <h2 class="slide-in">Projects</h2>
-      <div class="project slide-in delay1">
-        <h3>DDAP Web App (Python, Streamlit)</h3>
-        <p>Engineered a sentiment analysis platform to uncover behavioral patterns of digital addiction through social media data.</p>
-      </div>
-      <div class="project slide-in delay2">
-        <h3>GAN Project</h3>
-        <p><a href="git@github.com:illmaahh/GAN_project.git" target="_blank">GitHub Repository</a></p>
-      </div>
-      <div class="project slide-in delay3">
-        <h3>ElderVR — Adaptive Healthcare Dashboard</h3>
-        <p>VR-inspired adaptive healthcare system for elderly users with simplified UI, medicine reminders, and stress-relief modules.</p>
-      </div>
+    <!-- Publication Block 2 -->
+    <div class="pub-box glow-card">
+      <h3 class="pub-title">WhatsApp Usability Research (Study)</h3>
+      <a class="pub-doi" href="https://doi.org/10.5281/zenodo.17815510" target="_blank" rel="noopener">
+        DOI: 10.5281/zenodo.17815510
+      </a>
+      <p class="pub-summary">
+        Examines WhatsApp usability patterns, identifies friction points, and proposes UI improvements that enhance
+        accessibility, clarity, and digital well-being for diverse user groups.
+      </p>
     </div>
-  </section>
 
-  <!-- Publications Section -->
-  <section id="publications" class="page">
-    <div class="content fade-in">
-      <h2 class="slide-in">Publications</h2>
-      <div class="publication slide-in delay1">
-        <h3>Adaptive VR Interfaces for Elderly Healthcare Monitoring</h3>
-        <p>Zenodo — <a href="https://doi.org/10.5281/zenodo.17790985" target="_blank">DOI Link</a></p>
-      </div>
-      <div class="publication slide-in delay2">
-        <h3>WhatsApp Usability Research</h3>
-        <p>Analyzed accessibility and user interaction for elderly users and suggested interface improvements. 
-        <br>Access full paper: <a href="https://doi.org/your-whatsapp-paper-doi-link" target="_blank">View Research</a></p>
-      </div>
+  </div>
+</section>
+
+
+     <!-- ⬇⬇⬇ Paste here ⬇⬇⬇ -->
+ <!-- RESEARCH INTERESTS (compact section) -->
+<section id="research" class="section">
+  <div class="container section-inner">
+    <h2 class="section-title">Research Interests</h2>
+    <p class="section-lead">Exploring human-centered and intelligent systems through applied computing.</p>
+
+    <div class="interest-grid">
+      <div class="interest-card"><strong>Human–Computer Interaction & Accessible Interface Design</strong><p>Inclusive UI/UX for diverse cognitive and motor abilities</p></div>
+      <div class="interest-card"><strong>VR & Digital Well-Being</strong><p>Immersive healthcare systems and healthy digital behavior patterns</p></div>
+      <div class="interest-card"><strong>Intelligent Interactive Systems</strong><p>Explainable and adaptive AI-powered user experiences</p></div>
+      <div class="interest-card"><strong>Computer Science & Engineering</strong><p>Core focus on Data Analytics, Algorithms, Operating Systems, DBMS & Computer Networks</p></div>
     </div>
-  </section>
+  </div>
+</section>
+<!-- ⬆⬆⬆ END OF RESEARCH INTERESTS ⬆⬆⬆ -->
 
-  <!-- Certifications Section -->
-  <section id="certifications" class="page">
-    <div class="content fade-in">
-      <h2 class="slide-in">Certifications</h2>
-      <div class="cert-list">
-        <div class="cert slide-in delay1" onclick="showCert('cert1.jpg')">GenAI Powered Data Analytics — Job Simulation (2025)</div>
-        <div class="cert slide-in delay2" onclick="showCert('cert2.jpg')">AWS Solutions Architecture — Job Simulation (Apr 2025)</div>
-        <div class="cert slide-in delay3" onclick="showCert('cert3.jpg')">HP LIFE – Data Science & Analytics (Sep 2025)</div>
-        <div class="cert slide-in delay4" onclick="showCert('cert4.jpg')">HP LIFE – Social Media Marketing (Sep 2025)</div>
-        <div class="cert slide-in delay5" onclick="showCert('cert5.jpg')">Virtual Assistant — Amazon (Professional training)</div>
+</main>
+
+
+    <!-- EDUCATION -->
+    <section id="education" class="section">
+      <div class="container section-inner">
+        <h2 class="section-title">Education</h2>
+
+        <div class="edu-grid">
+          <div class="edu-card">
+            <h3>B.Tech — Computer Science &amp; Engineering</h3>
+            <p>5th Semester — focus areas: Human–Computer Interaction, VR for Healthcare, Data Analytics</p>
+            <p><strong>CGPA:</strong> Available upon request</p>
+          </div>
+
+          <div class="edu-card">
+            <h3>Workshops &amp; Courses</h3>
+            <ul>
+              <li>Data Analytics — Geeks of Gurukul</li>
+              <li>Google — Intro to Computer Vision &amp; AI (2025)</li>
+              <li>AI Powered Data Analytics (Apr 2024)</li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Leadership & Engagement Section -->
-  <section id="leadership" class="page">
-    <div class="content fade-in">
-      <h2 class="slide-in">Leadership & Engagement</h2>
-      <ul class="slide-in delay1">
-        <li>Prefect & Discipline Committee Head — All Saints School</li>
-        <li>NSS Committee — Community service and student welfare activities</li>
-        <li>Anchoring & Public Speaking — Freshers’ Party and academic events</li>
-        <li>Attended Databricks DevConnect, Dubai, 2025 — immersive event on data engineering, AI-powered tools, and networking</li>
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="section">
+      <div class="container section-inner">
+        <h2 class="section-title">Certifications</h2>
+        
+
+        <div class="cert-grid">
+          <button class="cert-tile" onclick="showCert('assets/cert1.jpg')">Google — Intro to Computer Vision &amp; AI (2025)</button>
+          <button class="cert-tile" onclick="showCert('assets/cert2.jpg')">Data Analytics — Geeks of Gurukul</button>
+          <button class="cert-tile" onclick="showCert('assets/cert3.jpg')">Virtual Assistant — Amazon</button>
+          <button class="cert-tile" onclick="showCert('assets/cert4.jpg')">Foundations of Python</button>
+          <button class="cert-tile" onclick="showCert('assets/cert5.jpg')">AI Powered Data Analytics (Apr 2024)</button>
+          <button class="cert-tile" onclick="showCert('assets/cert6.jpg')">HP LIFE — Social Media Marketing (Sep 2025)</button>
+          <button class="cert-tile" onclick="showCert('assets/cert7.jpg')">HP LIFE — Data Science &amp; Analytics (Sep 2025)</button>
+          <button class="cert-tile" onclick="showCert('assets/cert8.jpg')">AWS Solutions Architecture (Apr 2025)</button>
+          <button class="cert-tile" onclick="showCert('assets/cert9.jpg')">GenAI Powered Data Analytics</button>
+        </div>
+      </div>
+    </section>
+
+   <!-- LEADERSHIP & EXPERIENCE -->
+<section id="leadership" class="section">
+  <div class="container section-inner">
+    <h2 class="section-title">Leadership & Engagement</h2>
+    <p class="section-lead">Experiences that strengthened teamwork, discipline, communication, and professionalism.</p>
+
+    <!-- Compact list -->
+    <ul class="leadership-points">
+      <li>Prefect & Discipline Committee Head — All Saints School</li>
+      <li>NSS Committee — College</li>
+      <li>Anchoring & Public Speaking — Hosted academic & cultural events</li>
+      <li>Student Presentation Lead — Coursework seminars & paper presentations</li>
+      <li>Team Project Coordinator — Managed group assignments & deliverables</li>
+      <li>College Events Volunteer — Assisted in organizing workshops & programs</li>
+    </ul>
+
+    <!-- Highlight blocks -->
+    <div class="leadership-card large">
+      <h3>Databricks DevConnect — Dubai (Attended)</h3>
+      <p class="highlight-date"><strong>13 October 2025 • Middlesex University, Barnet Auditorium</strong></p>
+      <p>Explored AI-enabled data engineering, Lakehouse architecture, governance, and enterprise data intelligence.</p>
+    </div>
+
+    <div class="leadership-card large">
+      <h3>Industrial Internship (Placeholder)</h3>
+      <p><strong>Data Engineering Intern — DataPulse Labs</strong> (Jun 2025 – Aug 2025)</p>
+      <ul>
+        <li>Developed ETL pipelines for behavioural datasets.</li>
+        <li>Built Streamlit dashboards presenting sentiment shifts & insights.</li>
+        <li>Contributed to ML evaluation workflows & technical reports.</li>
       </ul>
     </div>
-  </section>
-
-  <!-- Experience Section -->
-  <section id="experience" class="page">
-    <div class="content fade-in">
-      <h2 class="slide-in">Experience</h2>
-      <p class="slide-in delay1">Open to research internships and real-world industry experience, contributing to innovative projects while learning new skills and technologies. Ready for relocation.</p>
-    </div>
-  </section>
-
-  <!-- Statement of Purpose -->
-  <section id="sop" class="page">
-    <div class="content fade-in">
-      <h2 class="slide-in">Statement of Purpose</h2>
-      <p class="slide-in delay1">Eager to gain hands-on experience through research or industry projects while contributing my skills, learning from experts, and growing into a confident and impactful professional.</p>
-    </div>
-  </section>
-
-</div>
-
-<!-- Certificate Popup -->
-<div id="cert-popup" class="cert-popup" onclick="closeCert()">
-  <img id="cert-img" src="" alt="Certificate">
-</div>
-
-<!-- Floating Contact Button -->
-<div id="contact-btn" class="contact-btn">Contact Me</div>
-
-<!-- Contact Modal -->
-<div id="contact-modal" class="contact-modal">
-  <div class="contact-content">
-    <span id="close-modal" class="close">&times;</span>
-    <h2>Get in Touch</h2>
-    <p>Email: <a href="mailto:ilmaaa.rashid@gmail.com">ilmaaa.rashid@gmail.com</a></p>
-    <p>GitHub: <a href="https://github.com/illmaahh" target="_blank">github.com/illmaahh</a></p>
-    <p>WhatsApp: <a href="https://wa.me/919302875725" target="_blank">Chat Now</a></p>
-    <p>Location: Bhopal, India (Ready for relocation)</p>
   </div>
-</div>
+</section>
 
-<script src="script.js"></script>
+
+    <!-- CONTACT & SOP (Compact & Small) -->
+<section id="contact" class="section compact-section">
+  <div class="container section-inner">
+    <h2 class="section-title">Contact & SOP</h2>
+
+    <div class="contact-grid compact">
+      <div class="contact-card small-card">
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:ilmaaa.rashid@gmail.com">ilmaaa.rashid@gmail.com</a></p>
+        <p>Phone: +91 9302875725</p>
+        <p>GitHub: <a href="https://github.com/illmaahh" target="_blank">github.com/illmaahh</a></p>
+        <p>WhatsApp: <a href="https://wa.me/919302875725" target="_blank">Chat</a></p>
+        <p>Location: Bhopal, India (Open to relocation)</p>
+      </div>
+
+      <div class="contact-card small-card">
+        <h3>About Me</h3>
+        <p>Curious and driven CS student passionate about tech, data, and impact. Open to research, internships, short programs and collaborative projects.</p>
+        <a class="btn btn-primary" href="assets/resume.pdf" download>Resume</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <!-- Certificate modal -->
+  <div id="cert-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" onclick="closeCert()">
+    <img id="cert-img" alt="Certificate image">
+  </div>
+
+  <!-- Project modal -->
+  <div id="project-modal" class="modal project-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="project-modal-inner" role="document" aria-labelledby="project-title">
+      <button class="modal-close" aria-label="Close" onclick="closeProject()">✕</button>
+      <div id="project-content"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">© Ilma Rasheed — 2025 • Motivated to contribute to research, internships, and short-term programs in computer science and technology.</div>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
 </body>
 </html>

@@ -2,51 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Research — Ilma Rasheed</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Local overrides and page-specific layout */
+    .page-wrap { max-width:1100px; margin:84px auto 72px; padding:28px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); }
+    .page-title { font-size:34px; font-weight:800; margin-bottom:10px; background:linear-gradient(90deg,#7be0ff,#ff8bd5); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .lead { color: #bcddee; margin-bottom:18px; }
+    .research-grid { display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); }
+    .research-card { background:rgba(255,255,255,0.02); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.03); box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+    .research-card h3{font-size:20px; margin-bottom:8px; color:#fff}
+    .research-card p{color:#d9eefc; line-height:1.6}
+    .meta-row{display:flex;gap:12px;color:#9ab;flex-wrap:wrap;margin-top:12px}
+    .view-btn{margin-top:12px;padding:8px 12px;background:#00d1ff;border-radius:8px;color:#001;display:inline-block;font-weight:700}
+  </style>
 </head>
 <body>
-  <div id="page-overlay" class="overlay"></div>
+  <!-- Video background -->
+  <video autoplay muted loop id="bg" playsinline style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-20;filter:brightness(.55)">
+    <source src="assets/bg-loop.mp4" type="video/mp4">
+  </video>
 
-  <header class="topbar">
-    <a class="logo" href="index.html">ILMA RASHEED</a>
-    <nav class="nav">
-      <a href="projects.html" class="nav-link">Projects</a>
-      <a href="research.html" class="nav-link active">Research</a>
-      <a href="certifications.html" class="nav-link">Certifications</a>
-      <a href="contact.html" class="nav-link cta">Contact</a>
-    </nav>
+  <!-- header/nav -->
+  <header class="header">
+    <div class="header-inner container">
+      <a class="brand" href="index.html">ILMA RASHEED</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="research.html" class="active">Research</a>
+        <a href="certifications.html">Certifications</a>
+        <a href="education.html">Education</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="page container">
-    <h2 class="page-title">Research & Publication</h2>
+  <main>
+    <div class="page-wrap container">
+      <h1 class="page-title">Research & Publications</h1>
+      <p class="lead">My published research and studies focused on HCI, VR accessibility and usability for elderly users. Below are summaries and links to access the full materials.</p>
 
-    <article class="research-card">
-      <h3>Adaptive VR Interfaces for Elderly Healthcare Monitoring</h3>
-      <p><strong>Platform:</strong> Zenodo — <a href="https://doi.org/10.5281/zenodo.17790985" target="_blank">10.5281/zenodo.17790985</a></p>
-      <p>This paper explores barriers elderly users face in VR and proposes interface modifications that reduce cognitive load and increase confidence. Includes user testing, recommendations and prototype evaluation.</p>
-    </article>
+      <div class="research-grid">
 
-    <section class="skills-grid">
-      <h4>Research methods</h4>
-      <ul>
-        <li>Usability testing</li>
-        <li>Cognitive walkthroughs</li>
-        <li>Survey design & analysis</li>
-        <li>Prototyping & evaluation</li>
-      </ul>
-    </section>
+        <!-- Zenodo Publication -->
+        <article class="research-card" id="zenodo-card">
+          <h3>Adaptive VR Interfaces for Elderly Healthcare Monitoring</h3>
+          <p><strong>Platform:</strong> Zenodo — DOI: <a href="https://doi.org/10.5281/zenodo.17790985" target="_blank" rel="noopener">10.5281/zenodo.17790985</a></p>
+          <p>This paper investigates barriers elderly users experience when interacting with VR-based healthcare applications and proposes interface adaptations that minimize cognitive load, increase readability, and improve user confidence. Methods included user studies, prototype testing, and a set of practical design recommendations for accessible VR dashboards.</p>
+          <div class="meta-row">
+            <span>Published 2025</span>
+            <span>HCI · VR · Accessibility</span>
+          </div>
+          <a class="view-btn" href="https://doi.org/10.5281/zenodo.17790985" target="_blank">Read on Zenodo</a>
+        </article>
 
+        <!-- WhatsApp Usability Study -->
+        <article class="research-card" id="whatsapp-card">
+          <h3>WhatsApp Usability Evaluation for Elderly Users</h3>
+          <p>This study consisted of structured usability tests, cognitive walkthroughs, and task-based evaluations with elderly participants to identify accessibility friction points in WhatsApp. Findings include recommendations for larger touch targets, simplified navigation, clearer affordances, and contextual reminders to help users find features more reliably.</p>
+          <p>The research produced a prioritized list of design changes and low-effort interaction improvements that significantly reduced task completion time in follow-up tests.</p>
+          <div class="meta-row"><span>Study type: Usability Evaluation</span><span>Outcome: Interaction redesign recommendations</span></div>
+          <button class="view-btn" onclick="openSummary('whatsapp')">View Summary</button>
+        </article>
+
+        <!-- ElderVR summary -->
+        <article class="research-card" id="eldervr-card">
+          <h3>ElderVR — Adaptive Healthcare Dashboard (Research Summary)</h3>
+          <p>ElderVR is a research prototype that blends VR metaphors with a simplified healthcare dashboard targeted at elderly users. The system emphasizes minimal cognitive load, large readable controls, medicine reminders, stress-relief interactions, and passive monitoring components presented in a calm, high-contrast layout.</p>
+          <p>Development included multiple iterative user tests, low-fidelity and high-fidelity prototyping, and evaluation metrics focusing on learnability and error rates for common tasks.</p>
+          <div class="meta-row"><span>Prototype: Streamlit + Python</span><span>Focus: Accessibility & HCI</span></div>
+          <a class="view-btn" href="https://github.com/illmaahh/ElderVR" target="_blank">View Repository</a>
+        </article>
+
+      </div>
+
+      <!-- longer writeup / methodology -->
+      <section style="margin-top:28px; background:rgba(255,255,255,0.01); padding:16px; border-radius:10px; border:1px solid rgba(255,255,255,0.02)">
+        <h3 style="margin-bottom:8px;">Research approach & methodology</h3>
+        <p style="color:#cfeff6;line-height:1.6">My research follows a user-centred approach: problem framing, literature review, participatory design, prototype development, and iterative evaluation. Methods frequently used include usability testing, cognitive walkthroughs, think-aloud protocols, task analysis, statistical analysis of task times & error rates, and qualitative interviews to understand mental models.</p>
+        <p style="color:#bcddee;line-height:1.45">If you'd like a copy of any dataset, experiment materials, or the full paper PDF, please contact me at <a href="mailto:ilmaaa.rashid@gmail.com">ilmaaa.rashid@gmail.com</a>.</p>
+      </section>
+
+    </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <a href="index.html">← Back to Home</a>
-    </div>
-  </footer>
+  <footer style="text-align:center;padding:28px;color:#bcddee;opacity:.8">© 2025 Ilma Rasheed — Research & Projects</footer>
 
-  <script src="script.js"></script>
+  <script>
+    function openSummary(key){
+      if(key === 'whatsapp'){
+        const text = `WhatsApp Usability Study — Summary:
+- Study type: Task-based usability testing with elderly participants.
+- Key findings: small touch targets, nested menus, low affordance for voice notes and status, cognitive burden for multi-step actions.
+- Recommendations: larger primary actions, clear labels, guided onboarding, contextual help, simplified menus.`;
+        alert(text);
+      }
+    }
+  </script>
 </body>
 </html>
